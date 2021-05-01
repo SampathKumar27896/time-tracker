@@ -1,0 +1,4 @@
+npx sequelize-cli model:generate --name TaskStatus --attributes status:string
+npx sequelize-cli model:generate --name Task --attributes task_name:string,task_status:integer
+npx sequelize-cli model:generate --name TaskLog --attributes task_comment:string
+npx sequelize-cli seed:generate --name TaskStatus
