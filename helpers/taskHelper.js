@@ -1,8 +1,9 @@
 const Model = require('../models');
+const { Op } = require("sequelize");
 
 const createTask = async (task) => {
     try {
-        const createResult = await Model.Task.create(
+        await Model.Task.create(
             {
                 task_name: task.task_name,
                 task_status: task.task_status
@@ -24,7 +25,24 @@ const udpateTaskStatusById = async (taskId, taskStatus) => {
         return false;
     }   
 }
+
+const getAllTasks = async(search) => {
+    try {
+        const taskLists = await Model.Task.findAll({
+            // where: {
+            //     task_status: {[Op.ne]: 5}
+            // }
+        });
+        // console.log(taskLists);
+        return taskLists;
+    }catch(err) {
+        console.log(err);
+        return false;
+    }
+  
+}
 module.exports = {
     createTask: createTask,
-    udpateTaskStatusById: udpateTaskStatusById
+    udpateTaskStatusById: udpateTaskStatusById,
+    getAllTasks: getAllTasks
 }

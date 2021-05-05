@@ -49,7 +49,18 @@ const udpateTask = async(req, res) => {
         res.status(500).send({ message: "Something went wrong", error: err[0] });
     }
 }
+const listAllTasks = async(req, res) => {
+    try {
+        const tasks = await taskHelper.getAllTasks();
+        res.status(200).send({ message:"Data retrieved successfully", data:tasks})
+    }catch(err) {
+        console.log(err);
+        res.status(500).send({ message: "Something went wrong", error: err[0] });
+    }
+    
+}
 module.exports = {
     addTask: addTask,
-    udpateTask: udpateTask
+    udpateTask: udpateTask,
+    listAllTasks:listAllTasks
 }
