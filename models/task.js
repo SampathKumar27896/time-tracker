@@ -36,5 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Task',
   });
+  Task.associate = function(models) {
+    User.belongsTo(models.TaskStatus, {foreignKey: 'task_status', as: 'status'})
+  };
   return Task;
 };

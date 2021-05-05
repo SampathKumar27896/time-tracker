@@ -30,5 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'TaskStatus',
   });
+  TaskStatus.associate = function(models) {
+    TaskStatus.hasMany(models.Task, {as: 'task'})
+  };
   return TaskStatus;
 };
