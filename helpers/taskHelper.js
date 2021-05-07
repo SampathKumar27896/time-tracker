@@ -6,7 +6,9 @@ const createTask = async (task) => {
         await Model.Task.create(
             {
                 task_name: task.task_name,
-                task_status: task.task_status
+                task_status: task.task_status,
+                duration: task.duration,
+                last_start_time: task.last_start_time
             }
         );
         return true;

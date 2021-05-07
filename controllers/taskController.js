@@ -5,11 +5,15 @@ const addTask = async (req, res) => {
     try {
         const task = {
             task_name: req.body.taskName,
-            task_status: req.body.taskStatus
+            task_status: req.body.taskStatus,
+            duration: '00:00:00',
+            last_start_time: '00:00:00'
         }
+        console.log(task)
         if(await taskHelper.createTask(task))
             res.status(200).send({ message: "Task added successfully" });
-        res.status(500).send({ message: "Something went wrong", error: err });
+        else
+            res.status(500).send({ message: "Something went wrong" });
     } catch (err) {
         console.log(err);
         res.status(500).send({ message: "Something went wrong", error: err });

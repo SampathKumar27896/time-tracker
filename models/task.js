@@ -31,6 +31,14 @@ module.exports = (sequelize, DataTypes) => {
         model: 'TaskStatus',
         key: 'id',
       }
+    },
+    duration: {
+      type:DataTypes.TIME,
+      allowNull: true,
+    },
+    last_start_time: {
+      type:DataTypes.TIME,
+      allowNull: true,
     }
   }, {
     sequelize,
