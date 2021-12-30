@@ -1,30 +1,30 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('TaskLogs', {
+    await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      task_id: {
-        type:Sequelize.INTEGER,
-        references: {
-          model: 'Tasks',
-          key: 'id',
-        }
-      },
-      task_comment: {
-        type: Sequelize.STRING
-      },
-      start_time: {
+      userName:{
         allowNull: false,
-        type: Sequelize.DATE
+        unique: true,
+        type:Sequelize.STRING
       },
-      end_time: {
+      password:{
         allowNull: false,
-        type: Sequelize.DATE
+        type:Sequelize.STRING
+      },
+      email:{
+        allowNull: false,
+        unique: true,
+        type:Sequelize.STRING
+      },
+      isActive: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -34,9 +34,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
+    }, {
+      Sequelize,
+      modelName: 'User',
     });
+        
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('TaskLogs');
+    await queryInterface.dropTable('Users');
   }
 };
