@@ -18,7 +18,28 @@ const addProject = async(req, res, next) => {
             message:  constants.PROJECT_ADDED_SUCC_MSG
         }
         res.status(201).send(result);
-        res.send(req.user); 
+    }catch(error) {
+        console.error(error)
+        next(error);
+    }
+}
+
+const updateProject = async(req, res, next) => {
+    try {
+        const { projectName, projectDescription, isActive, projectId } = req.body;
+        await db.Project.update({
+            projectName,
+            projectDescription,
+            isActive,
+            updatedById: req.userId
+        }, {where: {
+            id: projectId
+        }})
+        result = {
+            status: true,
+            message:  constants.PROJECT_UPDATED_SUCC_MSG
+        }
+        res.status(200).send(result);
     }catch(error) {
         console.error(error)
         next(error);
@@ -30,8 +51,6 @@ const getAllProjects = async(req, res, next) => {
         const {userId} = req.query;
         const projects = await db.Project.findAll({ where: {createdById: userId}, include: [{ model: db.User, attributes: ['userName']}] });
         res.send(projects);
-
-        
     }catch(error) {
         console.log(error);
         next(error);
@@ -40,5 +59,6 @@ const getAllProjects = async(req, res, next) => {
 
 module.exports = {
     addProject,
+    updateProject,
     getAllProjects
 }

@@ -23,6 +23,26 @@ module.exports = (sequelize, DataTypes) => {
           name: 'updatedById',
         }
       })
+      this.hasMany(models.Task, {
+        foreignKey: {
+          name: 'createdById',
+        }
+      })
+      this.hasMany(models.Task, {
+        foreignKey: {
+          name: 'updatedById',
+        }
+      })
+      this.hasMany(models.TaskLog, {
+        foreignKey: {
+          name: 'createdById',
+        }
+      })
+      this.hasMany(models.TaskLog, {
+        foreignKey: {
+          name: 'updatedById',
+        }
+      })
     }
   };
   User.init({

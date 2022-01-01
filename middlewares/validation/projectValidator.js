@@ -9,9 +9,19 @@ const addProjectValidationRules = () => {
     ]
 }
 
+const updateProjectValidationRules = () => {
+    return [
+        body('projectName').isLength({ min: constants.MIN_PROJECTNAME_LENGTH }).withMessage(constants.PROJECTNAME_LENGTH_MSG),
+        body('projectDescription').isLength({ min: constants.MIN_PROJDESC_LENGTH }).withMessage(constants.PROJDESC_LENGTH_MSG),
+        body('isActive').isBoolean(),
+        body('projectId').isInt()
+    ]
+}
+
 
 
 
 module.exports = {
     addProjectValidationRules,
+    updateProjectValidationRules,
 }

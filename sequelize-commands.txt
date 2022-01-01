@@ -3,4 +3,7 @@ npx sequelize-cli model:generate --name Task --attributes task_name:string,task_
 npx sequelize-cli model:generate --name TaskLog --attributes task_comment:string
 npx sequelize-cli seed:generate --name TaskStatus
 
-npx sequelize-cli db:migrate:undo:all --to 20211217184305-create-user.js
+npx sequelize-cli db:migrate:undo:all --to 20220101114037-create-task-log.js
+
+npx sequelize-cli model:generate --name Task --attributes taskName:string,taskDescription:string,projectId:integer,isActive:boolean, createdById:integer, updatedById:integer
+npx sequelize-cli model:generate --name TaskLog --attributes projectId:integer,taskId:integer,timeSpent:time,createdById:integer, updatedById:integer

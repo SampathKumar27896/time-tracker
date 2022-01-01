@@ -2,49 +2,50 @@
 const {
   Model
 } = require('sequelize');
-const constants = require('../constants');
 module.exports = (sequelize, DataTypes) => {
-  class Project extends Model {
+  class TaskLog extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models){
+    static associate(models) {
       this.belongsTo(models.User, {foreignKey: "createdById"})
       this.belongsTo(models.User, {foreignKey: "updatedById"})
-      this.hasMany(models.Task, {
-        foreignKey: {
-          name: 'projectId',
-        }
-      })
-      this.hasMany(models.TaskLog, {
-        foreignKey: {
-          name: 'projectId',
-        }
-      })
+      this.belongsTo(models.Task, {foreignKey: "taskId"})
+      this.belongsTo(models.Project, {foreignKey: "projectId"})
     }
   };
-  Project.init({
+  TaskLog.init({
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    projectName: {
-      unique: true,
+    projectId: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Project',
+        key: 'id',
+      }
     },
-    projectDescription:{
+    taskId: {
       allowNull: false,
-      type: DataTypes.TEXT,
-    }, 
-    isActive: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Task',
+        key: 'id',
+      }
+    },
+    timeSpent: {
       allowNull: false,
-      defaultValue: true,
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.TIME
+    },
+    comment: {
+      allowNull: false,
+      type: DataTypes.TEXT
     },
     createdAt: {
       allowNull: false,
@@ -71,15 +72,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
-  hooks: {
-    beforeCreate: async (project, options) => {
-      const projectExists = await Project.findOne({ where: { projectName: project.projectName }}); 
-      if(projectExists)
-        return Promise.reject(constants.PROJECT_EXISTS_MSG); 
-    }
-  },
     sequelize,
-    modelName: 'Project',
+    modelName: 'TaskLog',
   });
-  return Project;
+  return TaskLog;
 };

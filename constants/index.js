@@ -2,6 +2,9 @@ const MIN_PASSWORD_LENGTH =  5;
 const MIN_USERNAME_LENGTH = 3;
 const MIN_PROJECTNAME_LENGTH = 1;
 const MIN_PROJDESC_LENGTH = 3;
+const MIN_TASKNAME_LENGTH = 1;
+const MIN_TASKDESC_LENGTH = 3;
+const MIN_TASKCOMMENT_LENGTH = 3;
 module.exports = {
 
     JWT_EXPIRE_TIME: "1h",
@@ -22,9 +25,15 @@ module.exports = {
     PROJECTNAME_LENGTH_MSG: `Project name must be atleast ${MIN_PROJECTNAME_LENGTH} characters in length.`,
     PROJDESC_LENGTH_MSG: `Project description must be atleast ${MIN_PROJDESC_LENGTH} characters in length.`,
     PROJECT_ADDED_SUCC_MSG: "Project added successfully",
+    PROJECT_UPDATED_SUCC_MSG: "Project updated successfully",
     PROJECT_EXISTS_MSG: "The given Project name already exists.",
 
+    TASKNAME_LENGTH_MSG: `Project name must be atleast ${MIN_TASKNAME_LENGTH} characters in length.`,
+    TASKDESC_LENGTH_MSG: `Project description must be atleast ${MIN_TASKDESC_LENGTH} characters in length.`,
+    TASKCOMMENT_LENGTH_MSG: `Comment should be atleast ${MIN_TASKCOMMENT_LENGTH} characters in length`,
     TASK_EXISTS_MSG: "The given Task name already exists.",
+    TASK_ADDED_SUCC_MSG: "Task added successfully",
+    TASK_UPDATED_SUCC_MSG: "Task updated successfully",
 
     MIN_PASSWORD_LENGTH,
     MIN_USERNAME_LENGTH,

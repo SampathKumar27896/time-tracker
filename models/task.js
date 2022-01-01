@@ -4,48 +4,52 @@ const {
 } = require('sequelize');
 const constants = require('../constants');
 module.exports = (sequelize, DataTypes) => {
-  class Project extends Model {
+  class Task extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models){
+    static associate(models) {
       this.belongsTo(models.User, {foreignKey: "createdById"})
       this.belongsTo(models.User, {foreignKey: "updatedById"})
-      this.hasMany(models.Task, {
-        foreignKey: {
-          name: 'projectId',
-        }
-      })
+      this.belongsTo(models.Project, {foreignKey: "projectId"})
       this.hasMany(models.TaskLog, {
         foreignKey: {
-          name: 'projectId',
+          name: 'taskId',
         }
       })
     }
   };
-  Project.init({
+  Task.init({
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    projectName: {
+    projectId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Project',
+        key: 'id',
+      }
+    },
+    taskName: {
       unique: true,
       allowNull: false,
       type: DataTypes.STRING,
     },
-    projectDescription:{
+    taskDescription:{
       allowNull: false,
       type: DataTypes.TEXT,
-    }, 
+    },
     isActive: {
       allowNull: false,
       defaultValue: true,
       type: DataTypes.BOOLEAN,
-    },
+    }, 
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
@@ -71,15 +75,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
-  hooks: {
-    beforeCreate: async (project, options) => {
-      const projectExists = await Project.findOne({ where: { projectName: project.projectName }}); 
-      if(projectExists)
-        return Promise.reject(constants.PROJECT_EXISTS_MSG); 
-    }
-  },
+    hooks: {
+      beforeCreate: async (task, options) => {
+        const projectExists = await Task.findOne({ where: { taskName: task.taskName, projectId: task.projectId }}); 
+        if(projectExists)
+          return Promise.reject(constants.TASK_EXISTS_MSG); 
+      }
+    },
     sequelize,
-    modelName: 'Project',
+    modelName: 'Task',
   });
-  return Project;
+  return Task;
 };
