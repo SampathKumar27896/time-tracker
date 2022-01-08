@@ -13,6 +13,6 @@ module.exports = {
             else 
                 extractedErrors += `${err.msg} `;
         });
-        return res.status(422).send({status: false,message: extractedErrors});
+        return res.status(400).send({status: false,message: extractedErrors});
     }
 }
