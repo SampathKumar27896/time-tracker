@@ -17,7 +17,7 @@ app.use((err, req, res,next) => {
 	    res.send({status: false, message :(err.message)? err.message: err, stackTrace: (err.stack)? err.stack: "" });
     next(); 
 });
-
-app.listen(process.env.PORT || API_PORT, () => {
-    console.log(`Timetracker app listening at port ${API_PORT}`);
+const applicationPort = process.env.PORT || API_PORT;
+app.listen(applicationPort, () => {
+    console.log(`Timetracker app listening at port ${applicationPort}`);
 })
