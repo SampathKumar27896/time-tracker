@@ -7,7 +7,9 @@ require('dotenv').config()
 const { API_PORT }  = process.env;
 app.use(cors());
 app.use(bodyParser.json())
-
+app.get('/hello', (req, res) => {
+    res.status(200).send("hello world from time-spent");
+})
 app.use('/', routes);
 
 app.use((err, req, res,next) => {

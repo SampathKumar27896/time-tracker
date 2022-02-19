@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, Op
 } = require('sequelize');
 const constants = require('../constants');
 module.exports = (sequelize, DataTypes) => {
@@ -76,6 +76,11 @@ module.exports = (sequelize, DataTypes) => {
       const projectExists = await Project.findOne({ where: { projectName: project.projectName }}); 
       if(projectExists)
         return Promise.reject(constants.PROJECT_EXISTS_MSG); 
+    },
+    beforeUpdate: async(project, options) => {
+      const projectExists = await Project.findOne({where: { projectName: project.projectName, id:{[Op.ne]: project.id}}});
+      if(projectExists)
+        return Promise.reject(constants.PROJECT_EXISTS_MSG);
     }
   },
     sequelize,

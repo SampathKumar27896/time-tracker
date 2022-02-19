@@ -1,4 +1,4 @@
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 const constants = require('../../constants');
 
 const addProjectValidationRules = () => {
@@ -8,7 +8,11 @@ const addProjectValidationRules = () => {
         body('isActive').isBoolean(),
     ]
 }
-
+const editProjectValidationRules = () => {
+    return [
+        param('projectId').isInt()
+    ]
+}
 const updateProjectValidationRules = () => {
     return [
         body('projectName').isLength({ min: constants.MIN_PROJECTNAME_LENGTH }).withMessage(constants.PROJECTNAME_LENGTH_MSG),
@@ -24,4 +28,5 @@ const updateProjectValidationRules = () => {
 module.exports = {
     addProjectValidationRules,
     updateProjectValidationRules,
+    editProjectValidationRules
 }

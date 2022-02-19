@@ -5,13 +5,13 @@ const utils = require('../helpers/utils');
 let result = {};
 const registerUser = async(req, res, next) => {
     try {
-        // const { userName, email, password } = req.body;
-        // await db.User.create({
-        //     userName,
-        //     email,
-        //     isActive: true,
-        //     password
-        // })
+        const { userName, email, password } = req.body;
+        await db.User.create({
+            userName,
+            email,
+            isActive: true,
+            password
+        })
         result = {
             status: true,
             message:  constants.USER_REG_SUCC_MSG

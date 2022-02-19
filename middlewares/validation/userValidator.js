@@ -16,8 +16,8 @@ const registerUserValidationRules = () => {
 }
 const loginUserValidationRules = () => {
     return [
-        body('email').isEmail().trim().escape().normalizeEmail().withMessage(constants.INVALID_EMAIL_MSG),
-        body('password').isLength({ min: constants.MIN_PASSWORD_LENGTH })
+        body('email'),
+        body('password')
     ]
 }
 

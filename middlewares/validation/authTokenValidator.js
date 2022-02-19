@@ -4,7 +4,7 @@ const constants = require('../../constants');
 require('dotenv').config()
 const { JWT_SECRET }  = process.env;
 
-const verifyAuthToken = (req, res, next) => {
+const verifyAuthToken = () => {
 
     return [
         header('token').custom((value, {req, res}) => {
@@ -15,7 +15,10 @@ const verifyAuthToken = (req, res, next) => {
                 req.email = email;
                 return true;
             } catch(error) {
-                throw new Error(error);
+                console.log(error)
+                const err = new Error(constants.UNAUTHENTICATED);
+                err.code = 401;
+                throw err;
             } 
         })
     ]
