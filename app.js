@@ -18,6 +18,6 @@ app.use((err, req, res,next) => {
     next(); 
 });
 
-app.listen(API_PORT, () => {
+app.listen(process.env.PORT || API_PORT, () => {
     console.log(`Timetracker app listening at port ${API_PORT}`);
 })
