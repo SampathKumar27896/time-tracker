@@ -1,0 +1,27 @@
+{
+  "name": "time-tracker",
+  "version": "1.0.0",
+  "description": "time-tracker",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SampathKumar27896/time-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SampathKumar27896/time-tracker/issues"
+  },
+  "homepage": "https://github.com/SampathKumar27896/time-tracker#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
