@@ -4,7 +4,7 @@
   "description": "time-tracker",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.js",
+    "dev": "nodemon src/api.js",
     "start": "netlify-lambda serve src",
     "build": "netlify-lambda build src",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,8 +21,13 @@
   },
   "homepage": "https://github.com/SampathKumar27896/time-tracker#readme",
   "dependencies": {
+    "body-parser": "^1.20.0",
+    "connect-mongodb-session": "^3.1.1",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-session": "^1.17.3",
     "mongodb": "^4.7.0",
+    "mongoose": "^6.4.4",
     "netlify-lambda": "^2.0.15",
     "serverless-http": "^3.0.1"
   },

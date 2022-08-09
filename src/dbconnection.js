@@ -1,7 +1,6 @@
-const { MongoClient } = require("mongodb");
-
-const uri = process.env.DB_CONNECTION_STRING;
-
-const client = new MongoClient(uri);
-
-module.exports = client.db('timetracker');
+const mongoose = require('mongoose');
+const {dbConnectionURL} = require('./config');
+async function main() {
+    await mongoose.connect(dbConnectionURL, { autoIndex: false });
+}
+main().catch(err => console.log(err));
