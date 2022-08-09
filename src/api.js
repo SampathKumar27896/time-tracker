@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const otherRoutes = require('./routes/otherRoutes');
 const { authMiddleware } = require('./middlewares/authMiddleware');
-require('./dbconnection');
+require('./db');
 const {sessionSecret, dbConnectionURL, apiBaseUrl } = require('./config');
 const appSession = require('express-session');
 const sessionStore = require('connect-mongodb-session')(appSession);
