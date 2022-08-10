@@ -2,6 +2,7 @@ const express = require('express');
 const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const userRoutes = require('./routes/userRoutes');
 const otherRoutes = require('./routes/otherRoutes');
 const { authMiddleware } = require('./middlewares/authMiddleware');
@@ -13,7 +14,7 @@ const store = new sessionStore({
     uri: dbConnectionURL,
     collection: 'userSessions'
 })
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(appSession({
         secret: sessionSecret,
