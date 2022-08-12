@@ -28,8 +28,6 @@ const loginUser = async(req, res) => {
                         req.session.emailId = user.emailId;
                         req.session.userName = user.name;
                         req.session.userId = user._id;
-                        req.session.cookie.userName = user.name;
-                        req.session.cookie.emailId = user.emailId;
                         res.send({status: true, message: "Successfully logged in"});
                 } else {
                         res.status(401).send({status: false, message: "Unauthorized"});

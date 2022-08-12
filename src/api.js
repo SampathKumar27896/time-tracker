@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(appSession({
         secret: sessionSecret,
         saveUninitialized: true,
-        cookie: { maxAge: 1 * 60 * 1000},
+        cookie: { maxAge: 60 * 60 * 1000},
         store: store,
         resave: false
 }))
