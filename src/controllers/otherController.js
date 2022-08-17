@@ -141,6 +141,7 @@ const getTask = async (req, res) => {
       taskProgressState: 1,
     }).exec();
     res.send({
+      status: true,
       projects: projects,
       taskProgress: taskProgress,
       ...paginationResult,
