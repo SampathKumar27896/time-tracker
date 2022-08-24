@@ -125,7 +125,13 @@ const getTask = async (req, res) => {
     if (req.query.projectId) {
       conditions["projectId"] = req.query.projectId;
     }
-    let selectFields = ["name", "description", "isActive"];
+    let selectFields = [
+      "projectId",
+      "projectName",
+      "name",
+      "description",
+      "isActive",
+    ];
     let pagination = { skip: 0, limit: 5, page: page };
     let paginationResult = await paginator(
       Task,
