@@ -125,6 +125,9 @@ const getTask = async (req, res) => {
     if (req.query.projectId) {
       conditions["projectId"] = req.query.projectId;
     }
+    if (req.query.taskId) {
+      conditions["_id"] = req.query.taskId;
+    }
     let selectFields = [
       "projectId",
       "projectName",
