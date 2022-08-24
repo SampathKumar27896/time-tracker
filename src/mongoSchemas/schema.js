@@ -50,7 +50,7 @@ const taskProgressSchema = new Schema(
     taskId: mongoose.ObjectId,
     projectName: String,
     taskName: String,
-    taskProgressStatus: Number,
+    taskProgressState: Number,
     description: String,
     startTime: Date,
     endTime: Date,
