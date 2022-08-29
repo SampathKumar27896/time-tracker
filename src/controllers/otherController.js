@@ -146,7 +146,7 @@ const getTask = async (req, res) => {
       "name",
     ]).exec();
     const taskProgress = await TaskProgress.find({
-      $and: [{ userId: req.body.userId }, { taskProgressState: 1 }],
+      $and: [{ userId: req.body.userId }, { taskProgressState: 2 }],
     }).exec();
     res.send({
       status: true,
