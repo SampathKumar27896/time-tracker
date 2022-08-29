@@ -162,7 +162,7 @@ const getTask = async (req, res) => {
 const upsertTaskProgress = async (req, res) => {
   try {
     const { taskProgressState } = req.body;
-    if (taskProgressState === 1) {
+    if (taskProgressState === 2) {
       const {
         userId,
         userName,
@@ -184,7 +184,7 @@ const upsertTaskProgress = async (req, res) => {
       });
       taskProgress.save();
       res.send({ status: true, message: "Task started successfully" });
-    } else if (taskProgressState === 2) {
+    } else if (taskProgressState === 3) {
       const { taskProgressId, endTime, hours, minutes, description, userName } =
         req.body;
       const result = await TaskProgress.update(
