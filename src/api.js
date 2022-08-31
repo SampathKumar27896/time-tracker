@@ -26,13 +26,13 @@ app.use(
   })
 );
 
-// app.use(`${apiBaseUrl}/user`, userRoutes);
-app.use(`/user`, userRoutes);
+app.use(`${apiBaseUrl}/user`, userRoutes);
+// app.use(`/user`, userRoutes);
 //app.use();
-app.use(`/other`, authMiddleware, otherRoutes);
-// app.use(`${apiBaseUrl}/other`, authMiddleware, otherRoutes);
-app.listen(5000, () => {
-  console.log(`Server is running in the port 5000`);
-});
+// app.use(`/other`, authMiddleware, otherRoutes);
+app.use(`${apiBaseUrl}/other`, authMiddleware, otherRoutes);
+// app.listen(5000, () => {
+//   console.log(`Server is running in the port 5000`);
+// });
 //http://localhost:9999/.netlify/functions/api/user/registerUser
 module.exports.handler = serverless(app);
