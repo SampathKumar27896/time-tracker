@@ -7,4 +7,8 @@ router.post("/task/addTask", otherController.addTask);
 router.get("/task/getTasks", otherController.getTask);
 router.post("/task/updateTask", otherController.updateTask);
 router.post("/task/upsertTaskProgress", otherController.upsertTaskProgress);
+router.get(
+  "/taskProgress/getTaskProgressStats",
+  otherController.getTaskProgressStats
+);
 module.exports = router;

@@ -174,13 +174,13 @@ const upsertTaskProgress = async (req, res) => {
       } = req.body;
       const taskProgress = new TaskProgress({
         userId: userId,
-        userName: userName,
         projectId: projectId,
         projectName: projectName,
         taskId: taskId,
         taskName: taskName,
         startTime: startTime,
         taskProgressState: taskProgressState,
+        createdBy: userName,
       });
       taskProgress.save();
       res.send({ status: true, message: "Task started successfully" });
@@ -206,7 +206,92 @@ const upsertTaskProgress = async (req, res) => {
     throw error;
   }
 };
-
+const getTaskProgressStats = async (req, res) => {
+  try {
+    const { userId, projectId, taskId } = req.body;
+    let matchStage = {
+      $match: {
+        userId: userId,
+        taskProgressState: 3,
+      },
+    };
+    if (projectId && projectId !== null) {
+      matchStage["$match"]["projectId"] = projectId;
+    }
+    if (taskId && taskId !== null) {
+      matchStage["$match"]["taskId"] = taskId;
+    }
+    const pipeline = [
+      matchStage,
+      {
+        $project: {
+          projectName: 1,
+          taskName: 1,
+          description: 1,
+          startTime: 1,
+          endTime: 1,
+          totalTimeInMinutes: {
+            $dateDiff: {
+              startDate: "$startTime",
+              endDate: "$endTime",
+              unit: "minute",
+            },
+          },
+          totalHours: {
+            $floor: {
+              $divide: [
+                {
+                  $dateDiff: {
+                    startDate: "$startTime",
+                    endDate: "$endTime",
+                    unit: "minute",
+                  },
+                },
+                60,
+              ],
+            },
+          },
+          totalMinutes: {
+            $mod: [
+              {
+                $dateDiff: {
+                  startDate: "$startTime",
+                  endDate: "$endTime",
+                  unit: "minute",
+                },
+              },
+              60,
+            ],
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$projectName",
+          totalMinutes: {
+            $sum: "$totalTimeInMinutes",
+          },
+          projectName: {
+            $last: "$projectName",
+          },
+          taskName: {
+            $last: "$taskName",
+          },
+        },
+      },
+      {
+        $sort: {
+          projectName: 1,
+        },
+      },
+    ];
+    const result = await TaskProgress.aggregate(pipeline);
+    res.send({ status: true, data: result });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 module.exports = {
   addProject,
   getProject,
@@ -215,4 +300,5 @@ module.exports = {
   updateTask,
   getTask,
   upsertTaskProgress,
+  getTaskProgressStats,
 };
